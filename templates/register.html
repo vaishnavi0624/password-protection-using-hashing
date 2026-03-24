@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="wrapper">
+<div class="container">
+<h2>Register</h2>
+
+{% for msg in get_flashed_messages() %}
+<p class="msg">{{ msg }}</p>
+{% endfor %}
+
+<form method="post">
+<input type="text" name="username" placeholder="Username" required>
+
+<input type="password" id="password" name="password" placeholder="Password" onkeyup="checkStrength()" required>
+
+<p id="strength"></p>
+
+<input type="checkbox" onclick="togglePassword()"> Show Password
+
+<button type="submit">Register</button>
+</form>
+
+<a href="/">Back</a>
+</div>
+</div>
+
+<script>
+function togglePassword() {
+ let p = document.getElementById("password");
+ p.type = p.type === "password" ? "text" : "password";
+}
+
+function checkStrength() {
+ let p = document.getElementById("password").value;
+ let s = document.getElementById("strength");
+
+ if (p.length < 6) {
+   s.innerHTML = "Weak ❌";
+   s.style.color = "red";
+ } else if (p.length < 10) {
+   s.innerHTML = "Medium ⚠";
+   s.style.color = "orange";
+ } else {
+   s.innerHTML = "Strong ✅";
+   s.style.color = "green";
+ }
+}
+</script>
+
+</body>
+</html>
